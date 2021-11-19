@@ -46,7 +46,7 @@ You can use the compiler.bbc file to generate basic code using a [real BBC Micro
 
 The [compiler.bbc](https://github.com/ajgbarnes/bbc-micro-pascal-compiler/blob/master/compiler.bbc) and [basic.bbc](https://github.com/ajgbarnes/bbc-micro-pascal-compiler/blob/master/basic.bbc) are pre-tokenised BBC BASIC files that can be loaded into e.g. the [native BBC BASIC tools](https://www.bbcbasic.co.uk/bbcbasic.html)
 
-The [compiler.txt](https://github.com/ajgbarnes/bbc-micro-pascal-compiler/blob/master/compier.txt) and [basic.txt](https://github.com/ajgbarnes/bbc-micro-pascal-compiler/blob/master/basic.txt) files are untokenised and raw text files. These can be cut and paste in any tool or migrated into an appropriate operating system (not just BBC BASIC).
+The [compiler.txt](https://github.com/ajgbarnes/bbc-micro-pascal-compiler/blob/master/compiler.txt) and [basic.txt](https://github.com/ajgbarnes/bbc-micro-pascal-compiler/blob/master/basic.txt) files are untokenised and raw text files. These can be cut and paste in any tool or migrated into an appropriate operating system (not just BBC BASIC).
 
 The [pascal.ssd](https://github.com/ajgbarnes/bbc-micro-pascal-compiler/blob/master/pascal.ssd) file can be loaded into any BBC Micro Emulator and the compiler executed with '''CHAIN "COMPILE"''.  The compiled output is also pre-stored and can be run with '''CHAIN "BASIC"'''
 

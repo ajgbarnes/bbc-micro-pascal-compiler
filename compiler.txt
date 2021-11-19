@@ -1,0 +1,477 @@
+    500 DATA CONST
+    510 DATA W = 'CONSTANT MESSAGE';
+    520 DATA P = 3.1415926;
+    530 DATA Q = 5;
+    540 DATA TR = TRUE;
+    550 DATA VAR
+    560 DATA XR : REAL;
+    570 DATA YR : REAL;
+    580 DATA XI : INTEGER;
+    590 DATA YI : INTEGER;
+    600 DATA XC : CHAR;
+    610 DATA YC : CHAR;
+    620 DATA XB : BOOLEAN;
+    630 DATA XB : BOOLEAN;
+    640 DATA BEGIN
+    650 DATA"WRITELN (W,P,Q);"
+    660 DATA IF TR THEN WRITE ('YES ');
+    670 DATA IF TR=TRUE THEN WRITELN ('ALSO');
+    680 DATA XR := 23.12;
+    690 DATA YR := 12.34;
+    700 DATA XB := TRUE;
+    710 DATA YB := FALSE;
+    720 DATA XC := '#';
+    730 DATA YC := CHR(65);
+    740 DATA XI := 12;
+    750 DATA YI := 32000;
+    760 DATA IF (XB)AND(YB)OR(3=4) THEN WRITELN ('TRUE');
+    770 DATA FOR XR := 0.0 TO 10.0 DO
+    780 DATA BEGIN
+    790 DATA WRITE (XR)
+    800 DATA END;
+    810 DATA FOR XR := 10.0 DOWNTO 0.0 DO
+    820 DATA BEGIN
+    830 DATA WRITE (XR)
+    840 DATA END;
+    850 DATA REPEAT
+    860 DATA WRITE (XI);
+    870 DATA XI := SUCC(XI)
+    880 DATA UNTIL XI=15;
+    890 DATA WHILE YI>31990 DO
+    900 DATA BEGIN
+    910 DATA WRITE (YI);
+    920 DATA YI := YI-2
+    930 DATA END;
+    940 DATA XR := ABS(-2.9);
+    950 DATA IF ODD(3)=TRUE THEN WRITELN('3 IS ODD!!!');
+    960 DATA * PRINT "THIS IS BASIC"
+    970 DATA END.
+    1000 REM ***************************
+    1010 REM This Pascal compiler is
+    1020 REM COPYRIGHT (C) Jeremy Ruston,
+    1030 REM and may not be reproduced
+    1040 REM without express permission.
+    1050 REM ***************************
+    1051 REM *** IT IS NOT MENTIONED IN THE TEXT,***
+    1052 REM *** BUT BASIC COMMANDS CAN BE PUT ***
+    1053 REM *** INTO THE PASCAL PROGRAM, IF THEY ***
+    1054 REM *** ARE PRECEDED BY AN ASTERISK AND A SPACE ***
+    1055 REM *** THIS ALLOWS YOU TO USE FILE ***
+    1056 REM *** HANDLING COMMANDS AND GRAPHICS ***
+    1057 REM *** COMMANDS IN PASCAL ***
+    1058 REM *** SEE EXAMPLE PROGRAM ***
+    1059 REM ***************************
+    1060 DIM NA$(30),TY$(30)
+    1070 NP=1
+    1075 C3=0
+    1080 GOSUB 1240 : REM *** GET PASCAL ***
+    1090 PRINT:PRINT:PRINT:PRINT" -- BASIC ---":PRINT
+    1100 DIM BA$(60) : REM *** MAKE SPACE FOR BASIC ***
+    1101 REM *** DEFINE FUNCTIONS ***
+    1102 BA$(1)="DEF FNOD(X)=((X-INT(X/2)*2)=1)"
+    1103 BA$(2)="DEF FNPR(X)=X-1"
+    1104 BA$(3)="DEF FNSU(X)=X+1"
+    1105 BA$(4)="DEF FNRO(X)=INT(X+0.5)"
+    1106 BA$(5)="DEF FNSQ(X)=X*X"
+    1110 LI=6 :        REM *** CURRENT BASIC LINE IN ARRAY ***
+    1120 LP=1         : REM *** CURRENT PASCAL LINE ***
+    1130 P$=PA$(LP) :  REM *** GET PASCAL LINE ***
+    1140 A$=P$
+    1150 GOSUB 1480 :  REM *** GET FIRST WORD OF PASCAL LINE ***
+    1160 IF A$="CONST" THEN GOTO 1610
+    1170 IF A$="TYPE" THEN PRINT "ERROR - No structured types!":STOP
+    1180 IF A$="VAR" THEN GOTO 1860
+    1190 IF A$="PROCEDURE" THEN PRINT "ERROR - No procedures!":STOP
+    1200 IF A$="FUNCTION" THEN PRINT "ERROR - No functions!":STOP
+    1210 IF A$="BEGIN" THEN GOTO 2070
+    1220 IF A$="PROGRAM" THE PRINT "ERROR - 'program' not needed!":STOP
+    1230 PRINT "ERROR - I don't recognize ";A$;"!!!!":STOP
+    1240 REM ***********************************
+    1250 REM **** READ IN PASCAL, TO PA$(X) ****
+    1260 REM ***********************************
+    1270 PRINT:PRINT:PRINT:PRINT" -- PASCAL ---":PRINT
+    1280 DIM PA$(60)
+    1290 LE=1
+    1300 READ A$
+    1310 PRINT,A$
+    1320 PA$(LE)=A$
+    1330 IF A$="END." THEN RETURN
+    1340 LE=LE+1
+    1350 GOTO 1300
+    1360 REM ***************************************
+    1370 REM **** TAKE LEADING SPACES OFF A$    ****
+    1380 REM ***************************************
+    1390 IF LEN(A$)=0 OR A$=" " THEN RETURN
+    1400 IF LEFT$(A$,1)=" " THEN A$=MID$(A$,2):GOTO 1390
+    1410 RETURN
+    1420 REM ***************************************
+    1430 REM **** TAKE TRAILING SPACES OFF A$   ****
+    1440 REM ***************************************
+    1450 IF LEN(A$)=0 OR A$=" " THEN RETURN
+    1460 IF RIGHT$(A$,1)=" " THEN A$=LEFT$(A$,LEN(A$)-1): GOTO 1450
+    1470 RETURN
+    1480 REM ***************************************
+    1490 REM **** GET FIRST WORD OF A$, IN A$   ****
+    1500 REM **** REST OF WORD IN B$            ****
+    1510 REM ***************************************
+    1520 GOSUB 1360
+    1530 WO$=""
+    1540 IF A$="" THEN GOSUB 1360:B$=A$:A$=WO$:RETURN
+    1550 ST$=LEFT$(A$,1)
+    1560 IF ST$=" " THEN GOSUB 1360:B$=A$:A$=WO$:RETURN
+    1561 IF C3=1 AND ST$="(" THEN GOSUB 1360:B$=A$:A$=WO$:RETURN
+    1570 WO$=WO$+ST$
+    1580 IF LEN(A$)=1 THEN A$="":GOTO 1540
+    1590 A$=MID$(A$,2)
+    1600 GOTO 1550
+    1610 REM *****************
+    1620 REM *** CONST     ***
+    1630 REM *****************
+    1640 LP=LP+1:REM *** INCREMENT PASCAL POINTER ***
+    1650 A$=PA$(LP):REM *** COLLECT NEXT PASCAL LINE ***
+    1660 GOSUB 1480:REM *** GET IDENTIFIER ****
+    1670 REM *** IF NOT AN IDENTIFIER, RETURN ***
+    1680 IF A$="BEGIN" OR A$="CONST" OR A$="VAR" THEN GOTO 1130
+    1690 IF A$="PROCEDURE" OR A$="FUNCTION" OR A$="TYPE" THEN GOTO 1130
+    1700 BA$(LI)=A$:REM *** PUT IDENTIFIER IN BASIC ***
+    1710 NA$(NP)=A$:REM *** AND IN VAR.TABLE ***
+    1720 A$=B$:REM *** GET EQUALS SIGN ***
+    1730 GOSUB 1480
+    1740 A$=B$:REM *** GET TYPE FOR IDENTIFIER ***
+    1750 IF RIGHT$(A$,1)=";" THEN A$=LEFT$(A$,LEN(A$)-1): REM *** NO SEMI COLON ***
+    1760 GOSUB 1360:REM *** REMOVE SPURIOUS SPACES ***
+    1770 GOSUB 1420
+    1780 IF LEFT$(A$,1)="'" THEN TY$(NP)="CHAR"
+    1790 REM *** IF A CHAR TYPE, ADD QUOTES AND DOLLAR SIGN ***
+    1800 IF LEFT$(A$,1)="'" THEN BA$(LI)=BA$(LI)+"$"
+    1810 IF LEFT$(A$,1)="'" THEN A$=CHR$(34)+MID$(A$,2,LEN(A$)-2)+CHR$(34)
+    1820 NP=NP+1
+    1825 GOSUB 2230
+    1830 BA$(LI)=BA$(LI)+"="+A$:REM *** UPDATE BASIC ***
+    1840 LI=LI+1:REM *** NEXT BASIC LINE ***
+    1850 GOTO 1640:REM *** GO BACK FOR MORE ***
+    1860 REM *****************
+    1870 REM *** VAR       ***
+    1880 REM *****************
+    1890 LP=LP+1: REM *** INCREMENT PASCAL POINTER ***
+    1900 A$=PA$(LP):REM *** GET PASCAL LINE ***
+    1910 GOSUB 1480:REM *** GET VARIABLE NAME ***
+    1920 IF A$="PROCEDURE" OR A$="BEGIN" OR A$="TYPE" OR A$="PROGRAM" THEN GOTO 1130
+    1930 IF A$="FUNCTION" OR A$="CONST" THEN GOTO 1130
+    1940 GOSUB 1360:GOSUB 1420
+    1950 NA$(NP)=A$:REM *** SAVE NAME ***
+    1960 A$=B$
+    1970 GOSUB 1480
+    1980 A$=B$
+    1990 GOSUB 1480
+    2000 GOSUB 1360
+    2010 GOSUB 1420
+    2020 IF RIGHT$(A$,1)=";" THEN A$=LEFT$(A$,LEN(A$)-1):REM *** NO SEMI COLON ***
+    2030 GOSUB 1360: GOSUB 1420
+    2040 TY$(NP)=A$
+    2050 NP=NP+1
+    2060 GOTO 1890
+    2070 REM *****************
+    2080 REM *** BEGIN     ***
+    2090 REM *****************
+    2100 LP=LP+1
+    2110 E=0
+    2120 A$=PA$(LP)
+    2130 GOSUB 1480
+    2140 GOSUB 1360
+    2150 GOSUB 1420
+    2160 S$=A$
+    2170 GOSUB 2540
+    2180 IF E<>1 THEN GOTO 2110
+    2190 FOR T=1 TO LI 
+    2200 PRINT T*10;" ";BA$(T)
+    2210 NEXT T 
+    2220 END
+    2230 REM ***********************
+    2240 REM *** EXPRESSION      ***
+    2250 REM *** EVALUATOR       ***
+    2260 REM ***********************
+    2270 W$=""
+    2280 ST=1
+    2290 S$=MID$(A$,ST,1)
+    2300 IF S$>="A" AND S$<="Z" THEN GOTO 2360
+    2310 IF S$="'" THEN S$=CHR$(34)
+    2320 W$=W$+S$
+    2330 ST=ST+1
+    2340 IF ST>LEN(A$) THEN A$=W$:RETURN
+    2350 GOTO 2290
+    2360 IF ST>LEN(A$) THEN GOTO 2440
+    2370 X$=""
+    2380 S$=MID$(A$,ST,1)
+    2390 IF S$>"Z" OR S$<"A" THEN GOTO 2440
+    2400 X$=X$+S$
+    2410 ST=ST+1
+    2420 IF ST>LEN(A$) THEN GOTO 2440
+    2430 GOTO 2380
+    2440 S$=X$
+    2450 GOSUB 4810
+    2460 X$=S$
+    2470 IF X$="ARCTAN" THEN X$="ATN"
+    2471 IF X$="ODD" THEN X$="FNOD"
+    2472 IF X$="PRED" THEN X$="FNPR"
+    2473 IF X$="SUCC" THEN X$="FNSU"
+    2474 IF X$="ROUND" THEN X$="FNRO"
+    2475 IF X$="SQR" THEN X$="FNSQ"
+    2480 IF X$="TRUNC" THEN X$="INT"
+    2490 IF X$="CHR" THEN X$="CHR$"
+    2500 IF X$="ORD" THEN X$="ASC"
+    2510 IF X$="SQRT" THEN X$="SQR"
+    2511 IF X$="FALSE" THEN X$="0":REM INSERT IN THE QUOTES WHATEVER YOUR 
+    2512 REM COMPUTER OUTPUTS TO 'PRINT (3=2)'
+    2513 IF X$="TRUE" THEN X$="-1":REM INSERT IN THE QUOTES WHATEVER YOUR
+    2514 REM COMPUTER OUTPUTS TO 'PRINT (2=2)'
+    2520 W$=W$+X$
+    2530 GOTO 2290
+    2540 REM *****************
+    2550 REM *** STATEMENT ***
+    2560 REM *****************
+    2570 REM *** STATEMENT - HELD IN S$ ***
+    2580 IF RIGHT$(S$,1)=";" THEN S$=LEFT$(S$,LEN(S$)-1)
+    2590 IF S$="BEGIN" THEN GOTO 2860
+    2600 IF S$="IF" THEN GOTO 2930
+    2610 IF S$="REPEAT" THEN GOTO 3120
+    2620 IF S$="WHILE" THEN GOTO 3190
+    2630 IF S$="FOR" THEN GOTO 3320
+    2640 IF S$="END" THEN GOTO 3560
+    2650 IF S$="UNTIL" THEN GOTO 3840
+    2660 IF LEFT$(S$,4)="READ" THEN GOTO 4070
+    2661 IF LEFT$(S$,5)="WRITE" THEN GOTO 4400
+    2662 IF S$<>"*" THEN GOTO 2680
+    2663 A$=PA$(LP)
+    2664 GOSUB 1480
+    2665 BA$(LI)=B$
+    2666 LI=LI+1
+    2667 LP=LP+1
+    2668 RETURN
+    2680 IF S$="END." THEN GOTO 4750
+    2690 REM *** S$ IS NOW NOT ANYTHING OBVIOUS ***
+    2700 REM *** CAN ONLY AN EXPRESSION OR A PROCEDURE CALL ***
+    2710 GOSUB 4810:REM *** GET POSSIBLE DOLLAR
+    2720 BA$(LI)=S$+" = "
+    2730 A$=PA$(LP)
+    2740 GOSUB 1480
+    2750 A$=B$
+    2760 GOSUB 1480
+    2770 A$=B$
+    2780 IF RIGHT$(A$,1)=";" THEN A$=LEFT$(A$,LEN(A$)-1)
+    2790 GOSUB 1360
+    2800 GOSUB 1420
+    2810 GOSUB 2230
+    2820 BA$(LI)=BA$(LI)+A$
+    2830 LI=LI+1
+    2840 LP=LP+1
+    2850 RETURN
+    2860 REM ***********************
+    2870 REM ***  BEGIN          ***
+    2880 REM ***********************
+    2890 BA$(LI)="REM BEGIN"
+    2900 LI=LI+1
+    2910 LP=LP+1
+    2920 RETURN
+    2930 REM ***********************
+    2940 REM ***  IF             ***
+    2950 REM ***********************
+    2960 A$=PA$(LP):REM.....................COPY CURRENT PASCAL LINE
+    2970 GOSUB 1480:REM.....................GET 'IF' PART
+    2980 A$=B$:REM..........................COPY REST TO A$
+    2990 GOSUB 1480:REM.....................STRIP OFF EXPRESSION
+    3000 GOSUB 2230:REM.....................EVALUATE EXPRESSION
+    3010 BA$(LI)="IF "+A$+" THEN ":REM......PUT INTO BASIC
+    3020 W3$=BA$(LI):REM....................SAVE BASIC LINE SO FAR
+    3030 A$=B$:REM..........................'THEN' ONWARDS IN A$
+    3040 GOSUB 1480:REM.....................STRIP OFF 'THEN'
+    3050 PA$(LP)=B$
+    3060 A$=B$
+    3070 GOSUB 1480
+    3080 S$=A$
+    3090 GOSUB 2540
+    3100 BA$(LI-1)=W3$+BA$(LI-1)
+    3110 RETURN
+    3120 REM ***********************
+    3130 REM ***  REPEAT         ***
+    3140 REM ***********************
+    3150 BA$(LI)="REM REPEAT"
+    3160 LI=LI+1
+    3170 LP=LP+1
+    3180 RETURN
+    3190 REM ***********************
+    3200 REM ***  WHILE          ***
+    3210 REM ***********************
+    3220 A$=PA$(LP):REM *** GET PASCAL LINE ***
+    3230 GOSUB 1480:REM *** EXTRACT 'WHILE' ***
+    3240 A$=B$
+    3250 GOSUB 1480:REM *** GET EXPRESSION IN A$ ***
+    3260 GOSUB 2230:REM*** EVALUTE A$ ***
+    3270 BA$(LI)="IF NOT("+A$+") THEN GOTO "
+    3280 BA$(LI+1)="REM WHILE"
+    3290 LI=LI+2
+    3300 LP=LP+1
+    3310 RETURN
+    3320 REM ***********************
+    3330 REM ***  FOR            ***
+    3340 REM ***********************
+    3350 A$=PA$(LP):REM *** GET CURRENT LINE ***
+    3360 GOSUB1480:REM *** EXTRCT 'FOR' ***
+    3370 A$=B$
+    3380 GOSUB 1480:REM *** EXTRACT CONTROL VARAIBLE ***
+    3390 BA$(LI)="FOR "+A$+"=":REM *** UPDATE BASIC ***
+    3400 A$=B$
+    3410 GOSUB 1480:REM *** EXTRACT EQUALS SIGN ***
+    3420 A$=B$
+    3430 GOSUB 1480:REM *** EXTRACT LOWER LIMIT ***
+    3440 GOSUB 2230:REM *** EVALUATE LOWER LIMIT ***
+    3450 BA$(LI)=BA$(LI)+A$+" TO "
+    3460 A$=B$
+    3470 GOSUB 1480:REM *** EXTRACT 'TO'/'DOWNTO' ***
+    3480 S8$=A$
+    3490 A$=B$
+    3500 GOSUB 1480:REM *** EXTRACT UPPER LIMIT ***
+    3510 GOSUB 2230:REM *** EVALUTE IT ***
+    3520 BA$(LI)=BA$(LI)+A$
+    3530 IF S8$="DOWNTO" THEN BA$(LI)=BA$(LI)+" STEP -1"
+    3540 LP=LP+1:LI=LI+1
+    3550 RETURN
+    3560 REM ***********************
+    3570 REM ***  END            ***
+    3580 REM ***********************
+    3590 EN=0 
+    3600 BA=LI-1
+    3610 REM *** FIND MATCHING BEGIN ***
+    3620 IF BA$(BA)="REM BEGIN" AND EN=0 THEN GOTO 3680
+    3630 IF BA$(BA)="REM BEGIN" THEN EN=EN-1
+    3640 IF BA$(BA)="REM END" THEN EN=EN+1
+    3650 BA=BA-1
+    3660 IF BA>0 THEN GOTO 3620
+    3670 PRINT "ERROR 'BEGIN-END GONE WRONG !!!":STOP
+    3680 A$=BA$(BA-1)
+    3690 GOSUB 1480:REM *** A$=FIRST WORD BEFORE ***
+    3700 IF A$="FOR" THEN GOTO 3730
+    3710 IF BA$(BA-1)="REM WHILE" THEN GOTO 3780
+    3720 GOTO 3670
+    3730 BA$(LI)="NEXT"
+    3740 BA$(LI+1)="REM END"
+    3750 LI=LI+2
+    3760 LP=LP+1
+    3770 RETURN
+    3780 BA$(BA-2)=BA$(BA-2)+STR$(LI*10+10)
+    3790 BA$(LI)="GOTO "+STR$((BA-2)*10)
+    3800 BA$(LI+1)="REM END"
+    3810 LI=LI+2
+    3820 LP=LP+1
+    3830 RETURN
+    3840 REM ***********************
+    3850 REM ***  UNTIL          ***
+    3860 REM ***********************
+    3870 A$=PA$(LP):REM *** GET PASCAL LINE ***
+    3880 GOSUB 1480
+    3890 REM ***B$ NOW CONTAINS EXPRESSION ***
+    3900 A$=B$
+    3905 IF RIGHT$(A$,1)=";" THEN A$=LEFT$(A$,LEN(A$)-1)
+    3910 GOSUB 2230:REM *** EVALUTE EXPRESSION ***
+    3920 BA$(LI)="IF NOT("+A$+") THEN GOTO ":REM *** UPDATE BASIC ***
+    3930 REM *** NOW SEARCH BACK FOR 'REPEAT' ***
+    3940 BA=LI
+    3950 RE=0
+    3960 IF BA$(BA)="REM REPEAT" AND RE=0 THEN GOTO 4020
+    3970 IF BA$(BA)="REM UNTIL" THEN RE=RE+1
+    3980 IF BA$(BA)="REM REPEAT" THEN RE=RE-1
+    3990 BA=BA-1
+    4000 IF BA>0 THEN GOTO 3960
+    4010 PRINT "ERROR - REPEAT LOOP FAILED!!!":STOP
+    4020 BA$(LI)=BA$(LI)+STR$(BA*10)
+    4030 BA$(LI+1)="REM UNTIL"
+    4040 LI=LI+2
+    4050 LP=LP+1
+    4060 RETURN
+    4070 REM ***********************
+    4080 REM ***  READ           ***
+    4090 REM ***********************
+    4100 IF S$="READ" THEN PRINT "ERROR - NO READ ALLOWED!!!!":STOP
+    4110 A$=PA$(LP)          :REM *** GET PASCAL LINE ***
+    4115 C3=1
+    4120 GOSUB 1480         :REM *** GET ARGUMENT ***
+    4125 C3=0
+    4130 A$=B$              :REM *** GET READY FOR SPACES ***
+    4140 GOSUB 1360         :REM *** GET RID OF LEADING & TRAILING SPACES ***
+    4150 GOSUB 1420
+    4160 IF RIGHT$(A$,1)=";" THEN A$=LEFT$(A$,LEN(A$)-1):REM *** NO SEMICOLON ***
+    4170 GOSUB 1360
+    4180 GOSUB 1420
+    4190 IF LEFT$(A$,1)="(" THEN A$=MID$(A$,2):REM *** NO LEFT BRACKET ***
+    4200 IF RIGHT$(A$,1)=")" THEN A$=LEFT$(A$,LEN(A$)-1):REM *** NO RIGHT BRACKET ***
+    4210 GOSUB 1360
+    4220 GOSUB 1420
+    4230 REM *** A$ CONTAINS ARG., NO BRACKETS OR SEMI-COLON ***
+    4240 E$=S$
+    4250 BA$(LI)="INPUT "
+    4260 ST=1
+    4270 S$=""
+    4280 IF ST>LEN(A$) THEN GOTO 4340
+    4290 D$=MID$(A$,ST,1)
+    4300 IF D$="," THEN GOTO 4340
+    4310 S$=S$+D$
+    4320 ST=ST+1
+    4330 GOTO 4280
+    4340 GOSUB 4810
+    4350 ST=ST+1
+    4360 BA$(LI)=BA$(LI)+S$
+    4370 IF ST>LEN(A$) THEN LP=LP+1:LI=LI+1
+    4380 BA$(LI)=BA$(LI)+","
+    4390 GOTO 4270
+    4400 REM ***********************
+    4410 REM ***  WRITE          ***
+    4420 REM ***********************
+    4430 A$=PA$(LP)           :REM *** GET PASCAL LINE ***
+    4435 C3=1
+    4440 GOSUB 1480           :REM *** GET ARGUMENT ***
+    4445 C3=0
+    4450 A$=B$
+    4460 GOSUB 1360           :REM *** GET RID OF LEADING & TRAILING SPACES ***
+    4470 GOSUB 1420
+    4480 IF RIGHT$(A$,1)=";" THEN A$=LEFT$(A$,LEN(A$)-1):REM *** NO SEMICOLON ***
+    4490 GOSUB 1360
+    4500 GOSUB 1420
+    4510 IF LEFT$(A$,1)="(" THEN A$=MID$(A$,2):REM *** NO LEFT BRACKET ***
+    4520 IF RIGHT$(A$,1)=")" THEN A$=LEFT$(A$,LEN(A$)-1):REM *** NO RIGHT BRACKET ***
+    4530 GOSUB 1360
+    4540 GOSUB 1420 
+    4550 REM *** A$ CONTAINS ARG., NO BRACKETS OR SEMI-COLON ***
+    4560 E$=S$
+    4570 BA$(LI)="PRINT "
+    4580 ST=1
+    4590 S$=""
+    4600 IF ST>LEN(A$) AND MID$(A$,ST-1,1)="'" THEN GOTO 4680
+    4601 IF ST>LEN(A$) THEN GOTO 4670
+    4610 D$=MID$(A$,ST,1)
+    4615 IF MID$(A$,ST-1,1)="'" AND D$="," THEN GOTO 4680
+    4620 IF D$="," THEN GOTO 4670
+    4630 IF D$="'" THEN D$=CHR$(34)
+    4640 S$=S$+D$
+    4650 ST=ST+1
+    4660 GOTO 4600
+    4670 WE=ST:G$=A$:A$=S$:GOSUB 2230:S$=A$:A$=G$:ST=WE
+    4680 ST=ST+1
+    4690 BA$(LI)=BA$(LI)+S$
+    4700 IF ST>LEN(A$) THEN LP=LP+1:LI=LI+1:GOTO 4730
+    4710 BA$(LI)=BA$(LI)+","
+    4720 GOTO 4590
+    4730 IF E$="WRITE" THEN BA$(LI-1)=BA$(LI-1)+";"
+    4740 RETURN
+    4750 REM **********************
+    4760 REM ***  END.          ***
+    4770 REM **********************
+    4780 BA$(LI)="END"
+    4790 E=1: REM *** SET END FLAG ***
+    4800 RETURN
+    4810 REM **********************
+    4820 REM *** CHECK S$ FOR VAR *
+    4830 REM **********************
+    4840 FOR C=1 TO NP
+    4850 IF S$=NA$(C) THEN IF TY$(C)="CHAR" THEN S$=S$+"$"
+    4860 NEXT C
+    4870 RETURN
